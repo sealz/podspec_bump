@@ -67,6 +67,9 @@ describe PodspecBump do
 
      it 'current is correct version' do
       expect(podspec_bump('current', fail: false)).to include 'Current version: 4.2.3-beta'
+      expect(podspec_bump('current', fail: false)).not_to include '"'
+      expect(podspec_bump('current', fail: false)).not_to include "'"
+
     end
 
     it 'patch is correct version' do

@@ -7,7 +7,7 @@ module PodspecBump
   class Bump
     BUMPS         = %w(major minor patch)
     OPTIONS       = BUMPS | ["current"]
-    VERSION_REGEX = /(\d+\.\d+\.\d+(?:-.*)?)/
+    VERSION_REGEX = /(\d+\.\d+\.\d+(?:-\w+)?)/
 
     def self.run(bump, options={})
       case bump
