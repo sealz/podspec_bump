@@ -58,7 +58,37 @@ describe PodspecBump do
       expect(podspec_bump("patch")).to include '4.2.11'
       expect(read('fixture.podspec')).to include '"4.2.11"'
     end
+  end
 
+  context 'prelease version in fixture.podspec' do
+    before do
+      write_podspec '"4.2.3-beta"'
+    end
+
+     it 'current is correct version' do
+      expect(podspec_bump('current', fail: false)).to include 'Current version: 4.2.3-beta'
+      expect(podspec_bump('current', fail: false)).not_to include '"'
+      expect(podspec_bump('current', fail: false)).not_to include "'"
+
+    end
+
+    it 'patch is correct version' do
+      expect(podspec_bump('patch', fail: false)).to include '4.2.4'
+      expect(read('fixture.podspec')).to include '4.2.4'
+      expect(read('fixture.podspec')).not_to include '4.2.4-'
+    end
+
+    it 'minor is correct version' do
+      expect(podspec_bump('minor', fail: false)).to include '4.3.0'
+      expect(read('fixture.podspec')).to include '4.3.0'
+      expect(read('fixture.podspec')).not_to include '4.3.0-'
+    end
+
+    it 'major is correct version' do
+      expect(podspec_bump('major', fail: false)).to include '5.0.0'
+      expect(read('fixture.podspec')).to include '5.0.0'
+      expect(read('fixture.podspec')).not_to include '5.0.0-'
+    end
   end
 
   private
